@@ -864,8 +864,8 @@
             <button class="tab-btn active" onclick="openTab(event, 'tab-overview')">Portal Overview</button>
             <button class="tab-btn" onclick="openTab(event, 'tab-api-docs')">API & Documentation</button>
 
-            <!-- 3D Shiny Spiked Oval Button now triggers SIH Access Modal -->
-            <a href="javascript:void(0);" onclick="openModal('modal-sih-access')" class="spiked-fab" title="Access Webportals">
+            <!-- 3D Shiny Spiked Oval Button linked directly to the portal -->
+            <a href="https://portal-satqueryai-gndu.vercel.app" class="spiked-fab" title="Access Webportals">
                 <!-- Bottom Drop-shadow Layer (3D Extrusion) -->
                 <div class="spiked-shape spiked-shadow">
                     <div class="spike-layer spike-1"></div>
@@ -941,7 +941,7 @@
                         <div class="image-caption">Fig 1: Interface previews featuring Active Overlays, Target Resolution, and Data Inspector.</div>
                         <div class="image-actions">
                             <a onclick="openModal('modal-img-enlarge')">[ Enlarge Preview ]</a>
-                            <a href="javascript:void(0);" onclick="openModal('modal-sih-access')">[ Open Webportal Node ]</a>
+                            <a href="https://portal-satqueryai-gndu.vercel.app">[ Open Webportal Node ]</a>
                         </div>
                     </div>
                 </div>
@@ -970,7 +970,7 @@
                         <li>Multispectral Matrix Comparison</li>
                         <li>Secure FITS Array Downloads</li>
                     </ul>
-                    <a href="javascript:void(0);" class="btn" onclick="openModal('modal-sih-access')">Gov SSO Login >></a>
+                    <a href="https://portal-satqueryai-gndu.vercel.app" class="btn">Gov SSO Login >></a>
                 </div>
 
                 <!-- Research Institution Portal -->
@@ -984,7 +984,7 @@
                         <li>Historical Archive Access</li>
                         <li>View-Only Multispectral Tools</li>
                     </ul>
-                    <a href="javascript:void(0);" class="btn btn-secondary" onclick="openModal('modal-sih-access')">Academic Login >></a>
+                    <a href="https://portal-satqueryai-gndu.vercel.app" class="btn btn-secondary">Academic Login >></a>
                 </div>
             </div>
 
@@ -1073,31 +1073,6 @@
             <span class="modal-close" onclick="closeModal('modal-img-enlarge')" aria-label="Close Modal" style="color: white; text-shadow: 0 0 5px rgba(0,0,0,0.8);">&times;</span>
         </div>
         <img id="enlarged-img" src="assets/dashboard2.png" alt="Enlarged Dashboard Preview" style="max-width: 100%; max-height: 85vh; border: 3px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.5);" onerror="this.src='https://placehold.co/1200x800/eeeeee/999999?text=Image+Not+Found'">
-    </div>
-</div>
-
-<!-- SIH Mentor Access Form Modal -->
-<div id="modal-sih-access" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <span>RESTRICTED ACCESS</span>
-            <span class="modal-close" onclick="closeModal('modal-sih-access')" aria-label="Close Modal">&times;</span>
-        </div>
-        <div class="modal-body">
-            <p style="color: #cc0000; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; text-align: center;">ACCESS IS LIMITED AND ONLY OPEN TO SIH MENTORS.</p>
-            <p style="margin-bottom: 20px; text-align: justify;">Kindly submit your name, contact, and email below to request access. Alternatively, contact <strong>Jashanpreet Singh (astrodingra@gmail.com)</strong> directly for immediate authorization to the portal.</p>
-            
-            <form id="accessRequestForm">
-                <input type="text" id="mentorName" class="form-input" placeholder="Full Name" required>
-                <input type="email" id="mentorEmail" class="form-input" placeholder="Email Address" required>
-                <input type="text" id="mentorContact" class="form-input" placeholder="Contact Number" required>
-                <button type="submit" class="btn" style="width: 100%; background-color: #cc0000; margin-top: 10px;">Submit Access Request</button>
-            </form>
-
-            <div id="formSuccessMessage" style="display: none; margin-top: 20px; font-weight: bold; color: #138808; text-align: center; padding: 15px; background-color: #e8f5e9; border: 1px solid #138808; border-radius: 4px;">
-                Request submitted successfully! We will verify your credentials and contact you shortly.
-            </div>
-        </div>
     </div>
 </div>
 
@@ -1240,7 +1215,7 @@ SELECT region, timestamp, temp FROM telemetry WHERE temp > 35;</pre>
     const database = firebase.database();
 
     // Handle Access Form Submission
-    document.getElementById('accessRequestForm').addEventListener('submit', function(e) {
+    document.getElementById('accessRequestForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         
         const name = document.getElementById('mentorName').value;
@@ -1323,8 +1298,10 @@ SELECT region, timestamp, temp FROM telemetry WHERE temp > 35;</pre>
             document.getElementById('accessRequestForm').reset();
             document.getElementById('formSuccessMessage').style.display = 'none';
             const btn = document.querySelector('#accessRequestForm button');
-            btn.innerText = "Submit Access Request";
-            btn.disabled = false;
+            if (btn) {
+                btn.innerText = "Submit Access Request";
+                btn.disabled = false;
+            }
         }
     }
     
